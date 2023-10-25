@@ -1,18 +1,16 @@
 <div class="container py-3">
-    <div >
+    <form #form="ngForm">
       <div class="row g-2">
         <div class="col-md">
           <div class="form-floating">
-            <input type="text" [(ngModel)]="chartName" #floatingInputGrid="ngModel" required class="form-control" id="floatingInputGrid" placeholder="Chart Title">
+            <input type="text" [(ngModel)]="chartName" #floatingInputGrid="ngModel" required class="form-control" id="floatingInputGrid" placeholder="Chart Title" [ngModelOptions]="{standalone: true}">
             <label for="floatingInputGrid">Chart Title</label>
-            <div *ngIf="floatingInputGrid.invalid && (floatingInputGrid.dirty || floatingInputGrid.touched)" class="text-danger">
-              <div *ngIf="floatingInputGrid.errors?.['required']">Chart title is required.</div>
-            </div>
+          
           </div>
         </div>
         <div class="col-md">
           <div class="form-floating">
-            <select [(ngModel)]="chartType" class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+            <select [(ngModel)]="chartType" class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" [ngModelOptions]="{standalone: true}">
               <option selected value="">Open this select menu</option>
               <option value="1">Bar Chart</option>
               <option value="2">Line Chart</option>
@@ -24,16 +22,16 @@
         </div>
         <div class="col-md">
             <div class="row d-flex ms-2 py-1">
-              <div class="col"><button type="button" class="btn btn-outline-primary btn-lg"[disabled]="!floatingInputGrid.valid" (click)="addChart()">Apply</button></div>
+              <div class="col"><button type="button" class="btn btn-outline-primary btn-lg"[disabled]="!floatingInputGrid.valid" (click)="addChart(form)">Apply</button></div>
               <div class="col"><button type="button" class="btn btn-outline-danger btn-lg" >Delete</button></div>
               <div class="col"><button type="button" class="btn btn-outline-warning btn-lg" (click)="logout()">Logout</button></div>
             </div>
         </div>
       </div>
+    </form>
+    <div class="container">
+      <div class="row mt-5" id="area"></div>
     </div>
   
-    <div class="row mt-5" id="area">
-      
-    </div>
     
   </div>

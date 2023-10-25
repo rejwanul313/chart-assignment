@@ -1,4 +1,5 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/highcharts-more';
@@ -19,10 +20,14 @@ export class ChartsComponent {
   charts: any[] = [];
   constructor(private router: Router, private el: ElementRef, private renderer: Renderer2) {}
 
-addChart() {
+addChart(form: NgForm) {
+  if(this.chartType == ''){
+    alert('Please Select a Chart Type');
+    return;
+  }
   const newDiv = this.renderer.createElement('div');
   this.renderer.setAttribute(newDiv, 'id', `chart${this.chartIndex}`);
-  this.renderer.addClass(newDiv, 'col-6');
+  this.renderer.addClass(newDiv, 'col-12');
   this.renderer.addClass(newDiv, 'chart');
   this.renderer.appendChild(this.el.nativeElement.querySelector('#area'), newDiv);
 
@@ -47,6 +52,7 @@ addChart() {
   this.addDelete();
 
   this.chartName = '';
+  form.reset();
   this.chartIndex++;
 }
 
@@ -54,6 +60,8 @@ addDelete(){
   const deleteButton = this.renderer.createElement('button');
   this.renderer.setProperty(deleteButton, 'innerText', 'Delete');
   this.renderer.addClass(deleteButton, 'delete-button');
+  this.renderer.addClass(deleteButton, 'btn');
+  this.renderer.addClass(deleteButton, 'btn-danger');
   const index = this.chartIndex;
   this.renderer.listen(deleteButton, 'click', () => this.deleteChart(index));
   const chatId = `#chart${this.chartIndex}`
